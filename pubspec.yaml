@@ -65,6 +65,7 @@ dependencies:
   pinput: ^2.2.31
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
+  google_fonts: ^4.0.3
 
 
 
@@ -107,6 +108,10 @@ flutter:
   assets:
       - assets/icons/
       - assets/
+      - assets/icons/svg/
+      - assets/images/dummy/
+      - assets/images/
+      - assets/images/dummy_images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
