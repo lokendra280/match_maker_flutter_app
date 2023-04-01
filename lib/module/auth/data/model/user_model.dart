@@ -1,19 +1,18 @@
-import 'dart:html';
+class LoginModel {
+  String? email;
+  String? password;
 
-import 'package:flutter/foundation.dart';
+  LoginModel({this.email, this.password});
 
-class UserModel {
-  String? id, username, email;
-  UserModel({this.id, this.email, this.username});
-  factory UserModel.fromMap(map) {
-    return UserModel(
-        email: map['email'], username: map["username"], id: map.id);
+  LoginModel.fromJson(Map<String, dynamic> json) {
+    email = json['email'];
+    password = json['password'];
   }
-  Map<String, dynamic> toMap() {
-    return {
-      // "id": id,
-      "email": email,
-      "username": username,
-    };
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['email'] = this.email;
+    data['password'] = this.password;
+    return data;
   }
 }

@@ -1,127 +1,133 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:match_maker/module/auth/presentation/verify.dart';
 
-import '../../../core/presentation/resources/size_constants.dart';
-import '../../../core/presentation/resources/ui_assets.dart';
-import '../../../core/presentation/widget/forms/buttons.dart';
-import '../../../core/presentation/widget/forms/textfields.dart';
+class MyPhone extends StatefulWidget {
+  const MyPhone({Key? key}) : super(key: key);
+  static String verify = "";
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  @override
+  State<MyPhone> createState() => _MyPhoneState();
+}
+
+class _MyPhoneState extends State<MyPhone> {
+  TextEditingController countryController = TextEditingController();
+  var phone = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    countryController.text = "+977";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login '),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: SC.lW, vertical: SC.lH),
-          margin:
-              const EdgeInsets.symmetric(horizontal: SC.lW, vertical: SC.lH),
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(
+                'assets/img1.png',
+                width: 150,
+                height: 150,
+              ),
               const SizedBox(
-                height: 70,
+                height: 25,
               ),
-              Center(
-                child: Container(
-                    height: 70,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: SC.mW, vertical: SC.mH),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: SC.mW, vertical: SC.mH),
-                    child:
-                        Image.asset(UIAssets.getDummyImage('login_logo.png'))),
+              const Text(
+                "Phone Verification",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              SBC.mH,
-              Center(
-                  child: Text(
-                'Log in',
-                style: Theme.of(context).textTheme.bodyText1,
-              )),
-              SBC.xLH,
-              Text(
-                'Your e-mail',
-                style: Theme.of(context).textTheme.bodyText1,
+              const SizedBox(
+                height: 10,
               ),
-              PrimaryTextField(
-                onSaved: (_) {},
-                hintTxt: "Enter Your Email",
-              ),
-              SBC.mH,
-              Text(
-                'Password',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              PrimaryTextField(
-                onSaved: (_) {},
-                hintTxt: "Please enter your password",
-                suffixIcon: const Icon(Icons.visibility_off),
-              ),
-              SBC.mH,
-              Align(
-                  alignment: Alignment.topRight,
-                  child: PrimaryTextButton(
-                      title: 'Forgot Password ?', onPressed: () {})),
-              SBC.mH,
-              Row(
-                children: [
-                  const Icon(Icons.check_box_outline_blank),
-                  SBC.sW,
-                  Text(
-                    'Keep me logged in',
-                    style: Theme.of(context).textTheme.caption,
-                  )
-                ],
-              ),
-              SBC.xLH,
-              PrimaryButton(onPressed: () {}, title: 'Log in'),
-              SBC.xLH,
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Or Signin Using',
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                    SBC.sH,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(UIAssets.getIcon('google_icon.svg')),
-                        SBC.mW,
-                        SvgPicture.asset(
-                          UIAssets.getIcon('fb_icon.svg'),
-                        ),
-                      ],
-                    ),
-                  ],
+              const Text(
+                "We need to register your phone without getting started!",
+                style: TextStyle(
+                  fontSize: 16,
                 ),
+                textAlign: TextAlign.center,
               ),
-              //todo add google fb icon
-              SBC.xLH,
-              Center(
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 55,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10)),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'New User ? ',
-                      style: Theme.of(context).textTheme.bodyText2,
+                    const SizedBox(
+                      width: 10,
                     ),
-                    PrimaryTextButton(
-                      title: 'Create Account',
-                      onPressed: () {},
+                    SizedBox(
+                      width: 40,
+                      child: TextField(
+                        controller: countryController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
                     ),
+                    const Text(
+                      "|",
+                      style: TextStyle(fontSize: 33, color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: TextField(
+                      onChanged: (value) {
+                        phone = value;
+                      },
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Phone",
+                      ),
+                    ))
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green.shade600,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: "${countryController.text + phone}",
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                          MyPhone.verify = verificationId;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyVerify()),
+                          );
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                    },
+                    child: Text("Send the code")),
               )
             ],
           ),
