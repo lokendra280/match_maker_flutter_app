@@ -1,18 +1,45 @@
-class LoginModel {
-  String? email;
-  String? password;
+class UserModel {
+  String name;
+  String email;
+  String bio;
+  String profilePic;
+  String createdAt;
+  String phoneNumber;
+  String uid;
 
-  LoginModel({this.email, this.password});
+  UserModel({
+    required this.name,
+    required this.email,
+    required this.bio,
+    required this.profilePic,
+    required this.createdAt,
+    required this.phoneNumber,
+    required this.uid,
+  });
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    password = json['password'];
+  // from map
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      bio: map['bio'] ?? '',
+      uid: map['uid'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
+      createdAt: map['createdAt'] ?? '',
+      profilePic: map['profilePic'] ?? '',
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['password'] = this.password;
-    return data;
+  // to map
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "email": email,
+      "uid": uid,
+      "bio": bio,
+      "profilePic": profilePic,
+      "phoneNumber": phoneNumber,
+      "createdAt": createdAt,
+    };
   }
 }

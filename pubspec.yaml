@@ -60,13 +60,20 @@ dependencies:
   freezed_annotation: ^2.2.0
   flutter_dotenv: ^5.0.2
   get: ^4.6.5
-  shared_preferences: ^2.0.18
   form_builder_validators: ^8.5.0
-  pinput: ^2.2.31
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
   google_fonts: ^4.0.3
+  firebase_messaging: ^14.4.0
+  flutter_local_notifications: ^8.2.0
+  country_picker: ^2.0.20
 
+  cloud_firestore: ^4.1.0
+  firebase_storage: ^11.0.6
+  shared_preferences: ^2.0.15
+  provider: ^6.0.4
+  pinput: ^2.2.16
+  image_picker: ^0.8.6
 
 
 
@@ -109,9 +116,9 @@ flutter:
       - assets/icons/
       - assets/
       - assets/icons/svg/
-      - assets/images/dummy/
       - assets/images/
       - assets/images/dummy_images/
+      - assets/animation/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
