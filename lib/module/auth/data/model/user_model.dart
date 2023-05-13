@@ -2,6 +2,11 @@ class UserModel {
   String name;
   String email;
   String bio;
+  String marriage;
+  String city;
+  String diet;
+  String height;
+  
   String profilePic;
   String createdAt;
   String phoneNumber;
@@ -11,6 +16,11 @@ class UserModel {
     required this.name,
     required this.email,
     required this.bio,
+    required this.city,
+    required this.diet,
+    required this.height,
+    required this.marriage,
+    
     required this.profilePic,
     required this.createdAt,
     required this.phoneNumber,
@@ -27,6 +37,10 @@ class UserModel {
       phoneNumber: map['phoneNumber'] ?? '',
       createdAt: map['createdAt'] ?? '',
       profilePic: map['profilePic'] ?? '',
+       city: map['city'] ?? '',
+       marriage: map['marriage'] ?? '',
+       diet: map['diet'] ?? '',
+       height: map['height'] ?? '',
     );
   }
 
@@ -35,6 +49,10 @@ class UserModel {
     return {
       "name": name,
       "email": email,
+      "city" : city,
+      "marriage" : marriage,
+      "diet" : diet,
+      "height" : height,
       "uid": uid,
       "bio": bio,
       "profilePic": profilePic,

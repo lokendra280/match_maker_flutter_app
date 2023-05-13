@@ -9,7 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/presentation/resources/colors.dart';
 import '../../../core/presentation/widget/forms/buttons.dart';
+import '../../chat_screen.dart/chat_screen.dart';
 import '../../home_screen/home_screen.dart';
+import '../../profile/profile.dart';
+import '../../setting/setting_screen.dart';
 import '../controller/dashboard_controller.dart';
 
 final _unselectedColor = Colors.white54;
@@ -35,8 +38,11 @@ class _LandingPageState extends State<LandingPage> {
   final DashboardController dashboardController =
       Get.put(DashboardController());
 
-  final List<Widget> dashboardWidgets = [
+  final List<Widget> dashboardWidgets =  [
     HomeScreen(),
+    const ChatScreen(),
+    const SettingPage(),
+    ProfilePage(),
   ];
 
   @override
@@ -48,13 +54,13 @@ class _LandingPageState extends State<LandingPage> {
               alignment: Alignment.center,
               title: Text(
                 'Exit App',
-                style: Get.textTheme.bodyText2!.copyWith(
+                style: Get.textTheme.bodyMedium!.copyWith(
                   fontFamily: GoogleFonts.inter().fontFamily,
                 ),
               ),
               content: Text(
                 'Do you want to exit an App?',
-                style: Get.textTheme.bodyText2!.copyWith(
+                style: Get.textTheme.bodyMedium!.copyWith(
                   fontFamily: GoogleFonts.inter().fontFamily,
                   fontSize: 12,
                 ),
@@ -91,7 +97,11 @@ class _LandingPageState extends State<LandingPage> {
         body: Obx(() => IndexedStack(
               index: dashboardController.index.value,
               children: [
-                HomeScreen(),
+              HomeScreen(),
+              ChatScreen(),
+              SettingPage(),
+ProfilePage(),
+
               ],
             )),
         bottomNavigationBar: Obx(() => BottomNavigationBar(
@@ -135,24 +145,15 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                   label: "Inbox".tr,
                 ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/svg/home_trend.svg",
-                    color: dashboardController.index.value == 2
-                        ? _selectedColor
-                        : _unselectedColor,
-                  ),
-                  label: "Event".tr,
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/svg/project.svg",
-                    color: dashboardController.index.value == 3
-                        ? _selectedColor
-                        : _unselectedColor,
-                  ),
-                  label: "Task".tr,
-                ),
+                // BottomNavigationBarItem(
+                //   icon: SvgPicture.asset(
+                //     "assets/icons/svg/home_trend.svg",
+                //     color: dashboardController.index.value == 2
+                //         ? _selectedColor
+                //         : _unselectedColor,
+                //   ),
+                //   label: "Event".tr,
+                // ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     "assets/icons/svg/Activity.svg",
@@ -161,8 +162,18 @@ class _LandingPageState extends State<LandingPage> {
                         : _unselectedColor,
                   ),
                   label: "Account".tr,
+             
                 ),
-              ],
+                   BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                   "assets/icons/svg/project.svg",
+                    color: dashboardController.index.value == 3
+                         ? _selectedColor
+                         : _unselectedColor,
+                 ),
+                  label: "Search".tr,
+               ),
+               ],
             )),
       ),
     );

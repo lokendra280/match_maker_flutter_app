@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
+import 'package:match_maker/module/welcomescreen/welcome.dart';
 import 'package:provider/provider.dart';
-
+import 'module/auth/presentation/profile_page.dart';
 import 'module/auth/provider/auth_provider.dart';
-import 'module/welcomescreen/welcome.dart';
+import 'module/home_screen/home_screen.dart';
+import 'module/onboarding/Intropage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +23,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
-      child: const MaterialApp(
+      child:  const MaterialApp(
+        
         debugShowCheckedModeBanner: false,
-        home: WelcomeScreen(),
+        home: OnboardingScreen(),
         title: "MatchMaker",
       ),
     );

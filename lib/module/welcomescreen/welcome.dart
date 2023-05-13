@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:match_maker/core/presentation/resources/ui_assets.dart';
+import 'package:match_maker/module/landing/presentation/landing_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -64,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()))
+                                  builder: (context) =>  const LandingPage()))
                           : Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -75,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
+                                  builder: (context) =>  const LandingPage(),
                                 ),
                               ),
                             );

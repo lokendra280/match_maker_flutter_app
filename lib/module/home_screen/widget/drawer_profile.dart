@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:match_maker/module/auth/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 

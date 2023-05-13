@@ -1,4 +1,4 @@
-package com.example.match_maker
+package com.example.matchs_maker
 
 import io.flutter.embedding.android.FlutterActivity
 

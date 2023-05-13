@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:match_maker/module/landing/presentation/landing_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,10 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final bioController = TextEditingController();
+  final citycontroller = TextEditingController();
+  final marriagecontroller = TextEditingController();
+  final dietcontroller = TextEditingController();
+  final heightcontroller = TextEditingController();
 
   @override
   void dispose() {
@@ -31,6 +36,9 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     emailController.dispose();
     bioController.dispose();
   }
+
+  String dropdownValue = 'Dog';
+List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
   // for selecting image
   void selectImage() async {
@@ -91,18 +99,39 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
 
                             // email
                             textFeld(
+                              hintText: "Enter your City",
+                              icon: Icons.location_city,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: citycontroller,
+                            ),
+                            textFeld(
+                              hintText: "Marriage Status",
+                              icon: Icons.girl,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: marriagecontroller,
+                            ),
+                       
+                            textFeld(
+                              hintText: "Height",
+                              icon: Icons.height,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: heightcontroller,
+                            ),
+                            textFeld(
                               hintText: "abc@example.com",
                               icon: Icons.email,
                               inputType: TextInputType.emailAddress,
                               maxLines: 1,
                               controller: emailController,
                             ),
-
                             // bio
                             textFeld(
                               hintText: "Enter your bio here...",
                               icon: Icons.edit,
-                              inputType: TextInputType.name,
+                              inputType: TextInputType.text,
                               maxLines: 2,
                               controller: bioController,
                             ),
@@ -116,6 +145,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                         child: CustomButton(
                           text: "Continue",
                           onPressed: () {
+                            // print(dietcontroller);
                             storeData();
                           },
                         ),
@@ -176,7 +206,55 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
       ),
     );
   }
-
+  /// 
+ Widget dropdownField({
+    required String hintText,
+    required IconData icon,
+    required TextInputType inputType,
+    required int maxLines,
+    required TextEditingController controller,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: TextFormField(
+        cursorColor: Colors.purple,
+        controller: controller,
+        keyboardType: inputType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.purple,
+            ),
+            child: Icon(
+              icon,
+              size: 20,
+              color: Colors.white,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          hintText: hintText,
+          alignLabelWithHint: true,
+          border: InputBorder.none,
+          fillColor: Colors.purple.shade50,
+          filled: true,
+        ),
+      ),
+    );
+  }
   // store user data to database
   void storeData() async {
     final ap = Provider.of<AuthProvider>(context, listen: false);
@@ -184,6 +262,10 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
       name: nameController.text.trim(),
       email: emailController.text.trim(),
       bio: bioController.text.trim(),
+      city: citycontroller.text.trim(),
+      marriage: marriagecontroller.text.trim(),
+      diet: dietcontroller.text.trim(),
+      height: heightcontroller.text.trim(),
       profilePic: "",
       createdAt: "",
       phoneNumber: "",
@@ -200,7 +282,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                       (value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const LandingPage(),
                           ),
                           (route) => false),
                     ),
