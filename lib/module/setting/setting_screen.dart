@@ -1,13 +1,16 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:match_maker/module/welcomescreen/welcome.dart';
 
 import '../../core/presentation/resources/size_constants.dart';
+import '../../core/presentation/widget/dialogs.dart';
 import '../../core/presentation/widget/forms/buttons.dart';
 import '../about/presentation/about.dart';
 import '../about/presentation/account_management.dart';
+import '../auth/shared/logout_dialog.dart';
 import '../profile/presentation/edit_profile.dart';
 
 class SettingPage extends ConsumerWidget {
@@ -22,6 +25,25 @@ class SettingPage extends ConsumerWidget {
         title: const Text(
           "Setting",
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Future<void> _logout(BuildContext context) async {
+                  try {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen()),
+                    );
+                  } catch (e) {
+                    // Handle error during logout
+                    print('Logout Error: $e');
+                  }
+                }
+              },
+              icon: Icon(Icons.logout_rounded))
+        ],
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
@@ -54,10 +76,11 @@ class SettingPage extends ConsumerWidget {
             children: [
               InkWell(
                 onTap: () {
-                   Navigator.push(  
-                  context,  
-                  MaterialPageRoute(builder: (context) => const EditProfilePage()),  
-                  );  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EditProfilePage()),
+                  );
                 },
                 child: const _settingFeatures(
                   title: "Edit Profile",
@@ -81,10 +104,11 @@ class SettingPage extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                     Navigator.push(  
-                  context,  
-                  MaterialPageRoute(builder: (context) => const AccountManagement()),  
-                  );  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AccountManagement()),
+                  );
                 },
                 child: const _settingFeatures(
                   title: "Account Management",
@@ -103,11 +127,12 @@ class SettingPage extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(  
-                  context,  
-                  MaterialPageRoute(builder: (context) => const AboutUsPage()),  
-                  );  
-                  },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AboutUsPage()),
+                  );
+                },
                 child: const _settingFeatures(
                   title: "About Us",
                   iconsImage: Icon(Icons.arrow_back),
@@ -116,12 +141,10 @@ class SettingPage extends ConsumerWidget {
               const SizedBox(
                 height: 5,
               ),
-        
-                 const _settingFeatures(
-                  title: "Language",
-                  iconsImage: Icon(Icons.arrow_back),
-                ),
-              
+              const _settingFeatures(
+                title: "Language",
+                iconsImage: Icon(Icons.arrow_back),
+              ),
               const SizedBox(
                 height: 5,
               ),
@@ -132,22 +155,18 @@ class SettingPage extends ConsumerWidget {
               const SizedBox(
                 height: 10,
               ),
-              PrimaryButton(
-                onPressed: (_) {
-                  // showAnimatedDialog(
-                  //     context: context,
-                  //     widget: LogOutDialog(() {
-                  //       ref.read(authProvider).logout();
-                  //     }));
-                },
-                title: "Log Out",
-                color: const Color.fromRGBO(28, 144, 79, 1),
-                radius: 8,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const _LoginoutButton(),
+              // PrimaryButton(
+              //   onPressed: (_) {
+
+              //   },
+              //   title: "Log Out",
+              //   color: const Color.fromRGBO(28, 144, 79, 1),
+              //   radius: 8,
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // const _LoginoutButton(),
             ],
           ),
         ),

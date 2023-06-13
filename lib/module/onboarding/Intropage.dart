@@ -12,6 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  
   late PageController controller;
 
   bool isLastPage = false;
@@ -33,6 +34,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       isLastPage = index == 2;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {

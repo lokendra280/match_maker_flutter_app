@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_maker/core/presentation/widget/forms/buttons.dart';
@@ -10,7 +12,10 @@ import 'package:provider/provider.dart';
 
 import '../../core/presentation/resources/size_constants.dart';
 import '../../core/presentation/resources/ui_assets.dart';
+import '../../core/presentation/widget/dialogs.dart';
 import '../../core/presentation/widget/image_slider/image_slider.dart';
+import '../auth/shared/logout_dialog.dart';
+import '../chat_screen.dart/domain/api.dart';
 import 'notifier/partner_notifier.dart';
 
 // ignore: must_be_immutable
@@ -71,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Stack(
                             children: [
                               CircleAvatar(
-                                radius: 40,
+                                radius: 30,
                                 backgroundColor: Colors.transparent,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .copyWith(fontSize: 20, color: Colors.black),
                               ),
                               Text(
-                                '${ap.userModel.uid}',
+                                '${ap.userModel.id}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -168,59 +173,75 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: double.infinity,
                 height: 170,
                 // implement ListView
-
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: SC.lW, vertical: SC.mH),
-                      child: Card(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PersonDetail()),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              SBC.lH,
-                          
-                             CircleAvatar(
-                              radius: 30,
-                              backgroundImage: NetworkImage("https://images.unsplash.com/photo-1583391734039-1c611b6d9bd0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGluZGlhbiUyMGdpcmx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"),
-                             ),
-                             SBC.lW,
-                              Text("Site Giri",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      )),
-                              Text("Ktm",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      )),
-                                      
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SBC.lH,
+                child:  StreamBuilder(
+      stream: APIs.getspecuser(),
+      builder: (context, snapshot){
+      switch (snapshot.connectionState){
+        case ConnectionState.waiting:
+        case ConnectionState.none:
+        return const Center(child: CircularProgressIndicator());
+        case ConnectionState.active:
+        case ConnectionState.done:
+            final list = [];
+      
+        final data = snapshot.data?.docs;
+      for (var i in data!){
+        print('Data: ${i.data()}');
+        list.add(i.data()['name']);
+        // list.add(i.data()['profilePic']);
+      }
+      // log('Data: $ ');
+      
+      return ListView.builder(
+      
+      itemCount: list.length,
+      padding: EdgeInsets.only(top: .01 * MediaQuery.of(context).size.height ),
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index){
+      return InkWell(
+        onTap: () {
+         
+        },
+        child: Card(
+        margin: EdgeInsets.symmetric(horizontal: .04 * MediaQuery.of(context).size.width , vertical: 4),
+        elevation: 0.5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: InkWell(
+        onTap: () {
+        
+           //Navigator.push(context, MaterialPageRoute(builder: (_) => Chat(user: widget.user) ));
+        },
+        child:  InkWell(
+          onTap: () {
+               showAnimatedDialog(
+                    context: context,
+                    widget: LogOutDialog(() {
+                    }));
+          },
+          child: ListTile(
+            leading: CachedNetworkImage(
+            width: .055 * MediaQuery.of(context).size.width,
+            height: .055 * MediaQuery.of(context).size.height,
+            imageUrl: '',
+             errorWidget: (context, url, error) => const Icon(CupertinoIcons.person),
+             ),
+            title: Text('${list[index]}'),
+            subtitle: const Text("Last User message", maxLines: 1,),
+            trailing: const Text("12:00 PM",style: TextStyle(color: Colors.black54),),
+          ),
+        ),
+        ),
+          ),
+      );
+      }
+      );
+      }
+    
+      }
+      )
+      ),
+      SBC.xLH,
+      PrimaryButton(onPressed: (){}, title: "View More", width: 150, radius: 20,)
             ],
           ),
         ),

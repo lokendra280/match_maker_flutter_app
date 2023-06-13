@@ -11,11 +11,11 @@ class Partnerslist with ChangeNotifier {
   final String marriage;
   final double phoneNumber;
   final String profilePic;
-  final String uid;
+  final String id;
 
   Partnerslist({required this.name, required this.gender, required this.city, required this.createdAt, required this.diet,
    required this.email, required this.height, required this.marriage, required this.phoneNumber,
-    required this.profilePic, required this.uid, 
+    required this.profilePic, required this.id, 
   
   }
   );

@@ -236,15 +236,15 @@ class PrimaryDropDownField extends HookWidget {
             style: Theme.of(context).textTheme.bodyText1,
             name: '',
             isExpanded: false,
-            hint: Text(
-              hintTxt,
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
+            // hint: Text(
+            //   hintTxt,
+            //   style: Theme.of(context).textTheme.bodyText2,
+            // ),
             decoration:  const InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
             ),
             // initialValue: 'Male',
-            allowClear: true,
+           // allowClear: true,
             onSaved: onSaved,
             isDense: true,
             onChanged: onChanged,
@@ -559,7 +559,7 @@ dynamic formField(BuildContext context) {
         labelText: 'Gender',
       ),
       // initialValue: 'Male',
-      allowClear: true,
+      //allowClear: true,
       // onSaved: (value) {
       //   _registrationParams.general.gender = value;
       // },

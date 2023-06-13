@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/presentation/resources/colors.dart';
 import '../../../core/presentation/widget/forms/buttons.dart';
+import '../../auth/data/model/user_model.dart';
 import '../../chat_screen.dart/chat_screen.dart';
 import '../../home_screen/home_screen.dart';
 import '../../profile/profile.dart';
@@ -25,7 +26,9 @@ class NavigationConstants {
 }
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  //final UserModel user;
+
+  const LandingPage({super.key,});
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -40,9 +43,9 @@ class _LandingPageState extends State<LandingPage> {
 
   final List<Widget> dashboardWidgets =  [
     HomeScreen(),
-    const ChatScreen(),
+     const ChatScreen(),
     const SettingPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -99,7 +102,7 @@ class _LandingPageState extends State<LandingPage> {
               children: [
               HomeScreen(),
               ChatScreen(),
-              SettingPage(),
+              const SettingPage(),
 ProfilePage(),
 
               ],

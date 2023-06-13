@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:match_maker/core/presentation/resources/size_constants.dart';
 import 'package:match_maker/module/landing/presentation/landing_page.dart';
 
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class UserInfromationScreen extends StatefulWidget {
 
 class _UserInfromationScreenState extends State<UserInfromationScreen> {
   File? image;
+  File? image2;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final bioController = TextEditingController();
@@ -28,7 +30,14 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
   final marriagecontroller = TextEditingController();
   final dietcontroller = TextEditingController();
   final heightcontroller = TextEditingController();
-
+  final gendercontroller = TextEditingController();
+  final hobbycontroller = TextEditingController();
+  final religiouscontroller = TextEditingController();
+  final educationcontroller = TextEditingController();
+  final employcontroller = TextEditingController();
+  final agecontroller = TextEditingController();
+  final jobtypescontroller = TextEditingController();
+  final salaryrangecontroller = TextEditingController();
   @override
   void dispose() {
     super.dispose();
@@ -38,7 +47,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
   }
 
   String dropdownValue = 'Dog';
-List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
   // for selecting image
   void selectImage() async {
@@ -64,22 +73,45 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
                 child: Center(
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () => selectImage(),
-                        child: image == null
-                            ? const CircleAvatar(
-                                backgroundColor: Colors.purple,
-                                radius: 50,
-                                child: Icon(
-                                  Icons.account_circle,
-                                  size: 50,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : CircleAvatar(
-                                backgroundImage: FileImage(image!),
-                                radius: 50,
-                              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () => selectImage(),
+                            child: image == null
+                                ? const CircleAvatar(
+                                    backgroundColor: Colors.purple,
+                                    radius: 50,
+                                    child: Icon(
+                                      Icons.account_circle,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    backgroundImage: FileImage(image2!),
+                                    radius: 50,
+                                  ),
+                          ),
+                          SBC.mW,
+                          InkWell(
+                            onTap: () => selectImage(),
+                            child: image == null
+                                ? const CircleAvatar(
+                                    backgroundColor: Colors.amber,
+                                    radius: 50,
+                                    child: Icon(
+                                      Icons.account_circle,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    backgroundImage: FileImage(image!),
+                                    radius: 50,
+                                  ),
+                          ),
+                        ],
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -106,13 +138,383 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
                               controller: citycontroller,
                             ),
                             textFeld(
-                              hintText: "Marriage Status",
-                              icon: Icons.girl,
+                              hintText: "Enter your Age",
+                              icon: Icons.account_circle,
+                              inputType: TextInputType.number,
+                              maxLines: 1,
+                              controller: agecontroller,
+                            ),
+                            textFeld(
+                              hintText: "Enter your Religious",
+                              icon: Icons.account_circle,
                               inputType: TextInputType.text,
                               maxLines: 1,
-                              controller: marriagecontroller,
+                              controller: agecontroller,
                             ),
-                       
+                            textFeld(
+                              hintText: "Enter your Qualification",
+                              icon: Icons.account_circle,
+                              inputType: TextInputType.text,
+                              maxLines: 1,
+                              controller: agecontroller,
+                            ),
+                            textFeld(
+                              hintText: "Enter Your Salary Range",
+                              icon: Icons.account_circle,
+                              inputType: TextInputType.number,
+                              maxLines: 1,
+                              controller: salaryrangecontroller,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Jobs",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value:
+                                          employcontroller.text.toLowerCase() ==
+                                              'employee',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            employcontroller.text = 'Employee';
+                                          } else if (employcontroller.text
+                                                  .toLowerCase() ==
+                                              'employee') {
+                                            employcontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Employee'),
+                                    Checkbox(
+                                      value:
+                                          employcontroller.text.toLowerCase() ==
+                                              'employee',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            employcontroller.text = 'Employee';
+                                          } else if (employcontroller.text
+                                                  .toLowerCase() ==
+                                              'employee') {
+                                            employcontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Un-Employee'),
+                                  ],
+                                )
+                              ],
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Jobs types",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: jobtypescontroller.text
+                                              .toLowerCase() ==
+                                          'private',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            jobtypescontroller.text = 'Private';
+                                          } else if (jobtypescontroller.text
+                                                  .toLowerCase() ==
+                                              'Private') {
+                                            jobtypescontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Private'),
+                                    Checkbox(
+                                      value: jobtypescontroller.text
+                                              .toLowerCase() ==
+                                          'goverment',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            jobtypescontroller.text =
+                                                'Goverment';
+                                          } else if (jobtypescontroller.text
+                                                  .toLowerCase() ==
+                                              'goverment') {
+                                            jobtypescontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Goverment'),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Gender",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value:
+                                          gendercontroller.text.toLowerCase() ==
+                                              'male',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            gendercontroller.text = 'Male';
+                                          } else if (gendercontroller.text
+                                                  .toLowerCase() ==
+                                              'male') {
+                                            gendercontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Male'),
+                                    Checkbox(
+                                      value:
+                                          gendercontroller.text.toLowerCase() ==
+                                              'female',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            gendercontroller.text = 'Female';
+                                          } else if (citycontroller.text
+                                                  .toLowerCase() ==
+                                              'female') {
+                                            gendercontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Female'),
+                                    Checkbox(
+                                      value:
+                                          gendercontroller.text.toLowerCase() ==
+                                              'other',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            gendercontroller.text = 'Other';
+                                          } else if (citycontroller.text
+                                                  .toLowerCase() ==
+                                              'other') {
+                                            gendercontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Other'),
+                                  ],
+                                )
+                              ],
+                            ),
+
+                            // SBC.lH,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Marriage Status",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: marriagecontroller.text
+                                              .toLowerCase() ==
+                                          'unmarried',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            marriagecontroller.text =
+                                                'Unmarried';
+                                          } else if (marriagecontroller.text
+                                                  .toLowerCase() ==
+                                              'unmarried') {
+                                            marriagecontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Single'),
+                                    Checkbox(
+                                      value: marriagecontroller.text
+                                              .toLowerCase() ==
+                                          'married',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            marriagecontroller.text = 'Married';
+                                          } else if (marriagecontroller.text
+                                                  .toLowerCase() ==
+                                              'married') {
+                                            marriagecontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Married'),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Hobbey",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value:
+                                          hobbycontroller.text.toLowerCase() ==
+                                              'Dancing',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            hobbycontroller.text = 'Dancing';
+                                          } else if (hobbycontroller.text
+                                                  .toLowerCase() ==
+                                              'dancing') {
+                                            hobbycontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Dancing'),
+                                    Checkbox(
+                                      value:
+                                          hobbycontroller.text.toLowerCase() ==
+                                              'watching movie',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            hobbycontroller.text =
+                                                'Watching Movie';
+                                          } else if (citycontroller.text
+                                                  .toLowerCase() ==
+                                              'watching movie') {
+                                            hobbycontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Watching Movie'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Diet",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                SBC.lH,
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value:
+                                          dietcontroller.text.toLowerCase() ==
+                                              'Vegan Diet',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            dietcontroller.text = 'Vegan Diet';
+                                          } else if (dietcontroller.text
+                                                  .toLowerCase() ==
+                                              'vegan Diet') {
+                                            dietcontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Vegan Diet'),
+                                    Checkbox(
+                                      value:
+                                          dietcontroller.text.toLowerCase() ==
+                                              'low-Carb Diets',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value!) {
+                                            dietcontroller.text =
+                                                'Low-Carb Diets';
+                                          } else if (dietcontroller.text
+                                                  .toLowerCase() ==
+                                              'low-Carb Diets') {
+                                            dietcontroller.text = '';
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text('Low-Carb Diets'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // textFeld(
+                            //   hintText: "Marriage Status",
+                            //   icon: Icons.girl,
+                            //   inputType: TextInputType.text,
+                            //   maxLines: 1,
+                            //   controller: marriagecontroller,
+                            // ),
+
                             textFeld(
                               hintText: "Height",
                               icon: Icons.height,
@@ -120,6 +522,7 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
                               maxLines: 1,
                               controller: heightcontroller,
                             ),
+
                             textFeld(
                               hintText: "abc@example.com",
                               icon: Icons.email,
@@ -145,7 +548,6 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
                         child: CustomButton(
                           text: "Continue",
                           onPressed: () {
-                            // print(dietcontroller);
                             storeData();
                           },
                         ),
@@ -206,8 +608,9 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
       ),
     );
   }
-  /// 
- Widget dropdownField({
+
+  ///
+  Widget dropdownField({
     required String hintText,
     required IconData icon,
     required TextInputType inputType,
@@ -255,21 +658,32 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
       ),
     );
   }
+  // widget for checkbox
+
   // store user data to database
   void storeData() async {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     UserModel userModel = UserModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
+      jobtypes: jobtypescontroller.text.trim(),
       bio: bioController.text.trim(),
       city: citycontroller.text.trim(),
+      employe: employcontroller.text.trim(),
       marriage: marriagecontroller.text.trim(),
       diet: dietcontroller.text.trim(),
       height: heightcontroller.text.trim(),
+      gender: gendercontroller.text.trim(),
+      salaryrange: salaryrangecontroller.text.trim(),
+      hobby: hobbycontroller.text.trim(),
+      age: agecontroller.text.trim(),
+      religious: religiouscontroller.text.trim(),
+      qulafication: educationcontroller.text.trim(),
       profilePic: "",
+      docfilePic: "",
       createdAt: "",
       phoneNumber: "",
-      uid: "",
+      id: "",
     );
     if (image != null) {
       ap.saveUserDataToFirebase(
@@ -292,6 +706,51 @@ List<String> dropdownItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
     } else {
       Fluttertoast.showToast(
           msg: "Please upload your profile photo",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      // Fluttertoast.showToast(
+      //     msg: "Please upload your Valid Id Card",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
+      // showSnackBar(context, "Please upload your profile photo");
+    }
+    if (image2 != null) {
+      ap.savedocDataToFirebase(
+        context: context,
+        userModel: userModel,
+        docfilePic: image2!,
+        onSuccess: () {
+          ap.saveUserDataToSP().then(
+                (value) => ap.setSignIn().then(
+                      (value) => Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LandingPage(),
+                          ),
+                          (route) => false),
+                    ),
+              );
+        },
+      );
+    } else {
+      // Fluttertoast.showToast(
+      //     msg: "Please upload your profile photo",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Please upload your Valid Id Card",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,

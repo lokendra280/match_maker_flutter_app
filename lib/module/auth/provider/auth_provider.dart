@@ -17,8 +17,8 @@ class AuthProvider extends ChangeNotifier {
   bool get isSignedIn => _isSignedIn;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  String? _uid;
-  String get uid => _uid!;
+  String? _id;
+  String get id => _id!;
   UserModel? _userModel;
   UserModel get userModel => _userModel!;
 
@@ -87,7 +87,7 @@ class AuthProvider extends ChangeNotifier {
 
       if (user != null) {
         // carry our logic
-        _uid = user.uid;
+        _id = user.uid;
         onSuccess();
       }
       _isLoading = false;
@@ -101,8 +101,10 @@ class AuthProvider extends ChangeNotifier {
 
   // DATABASE OPERTAIONS
   Future<bool> checkExistingUser() async {
-    DocumentSnapshot snapshot =
-        await _firebaseFirestore.collection("users").doc(_uid).get();
+    DocumentSnapshot snapshot = await _firebaseFirestore
+        .collection("users")
+        .doc(_firebaseAuth.currentUser!.uid)
+        .get();
     if (snapshot.exists) {
       print("USER EXISTS");
       return true;
@@ -122,18 +124,21 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     try {
       // uploading image to firebase storage.
-      await storeFileToStorage("profilePic/$_uid", profilePic).then((value) {
+      await storeFileToStorage(
+        "profilePic/$_id",
+        profilePic,
+      ).then((value) {
         userModel.profilePic = value;
         userModel.createdAt = DateTime.now().millisecondsSinceEpoch.toString();
         userModel.phoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
-        userModel.uid = _firebaseAuth.currentUser!.phoneNumber!;
+        userModel.id = _firebaseAuth.currentUser!.phoneNumber!;
       });
       _userModel = userModel;
 
       // uploading to database
       await _firebaseFirestore
           .collection("users")
-          .doc(_uid)
+          .doc(_id)
           .set(userModel.toMap())
           .then((value) {
         onSuccess();
@@ -154,6 +159,52 @@ class AuthProvider extends ChangeNotifier {
     return downloadUrl;
   }
 
+  // store docfile
+  void savedocDataToFirebase({
+    required BuildContext context,
+    required UserModel userModel,
+    required File docfilePic,
+    required Function onSuccess,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      // uploading image to firebase storage.
+      await storeFileToStorage(
+        "docfilePicPic/$_id",
+        docfilePic,
+      ).then((value) {
+        userModel.profilePic = value;
+        userModel.createdAt = DateTime.now().millisecondsSinceEpoch.toString();
+        userModel.phoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
+        userModel.id = _firebaseAuth.currentUser!.phoneNumber!;
+      });
+      _userModel = userModel;
+
+      // uploading to database
+      await _firebaseFirestore
+          .collection("users")
+          .doc(_id)
+          .set(userModel.toMap())
+          .then((value) {
+        onSuccess();
+        _isLoading = false;
+        notifyListeners();
+      });
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message.toString());
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<String> storeuserdocFileToStorage(String ref, File file) async {
+    UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   Future getDataFromFirestore() async {
     await _firebaseFirestore
         .collection("users")
@@ -162,19 +213,27 @@ class AuthProvider extends ChangeNotifier {
         .then((DocumentSnapshot snapshot) {
       _userModel = UserModel(
         name: snapshot['name'],
+        qulafication: snapshot['qulafication'],
         email: snapshot['email'],
         createdAt: snapshot['createdAt'],
         bio: snapshot['bio'],
-        uid: snapshot['uid'],
+        religious: snapshot['religious'],
+        employe: snapshot['employe'],
+        salaryrange: snapshot['salaryrange'],
+        id: snapshot['id'],
         profilePic: snapshot['profilePic'],
+        docfilePic: snapshot['docfilePic'],
         phoneNumber: snapshot['phoneNumber'],
-         city: snapshot['city'],
-         marriage: snapshot['marriage'],
+        jobtypes: snapshot['jobtypes'],
+        city: snapshot['city'],
+        gender: snapshot['gender'],
+        hobby: snapshot['hobby'],
+        marriage: snapshot['marriage'],
         diet: snapshot['diet'],
+        age: snapshot['age'],
         height: snapshot['height'],
-        
       );
-      _uid = userModel.uid;
+      _id = userModel.id;
     });
   }
 
@@ -188,7 +247,7 @@ class AuthProvider extends ChangeNotifier {
     SharedPreferences s = await SharedPreferences.getInstance();
     String data = s.getString("user_model") ?? '';
     _userModel = UserModel.fromMap(jsonDecode(data));
-    _uid = _userModel!.uid;
+    _id = _userModel!.id;
     notifyListeners();
   }
 

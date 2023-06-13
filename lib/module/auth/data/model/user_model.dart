@@ -6,25 +6,41 @@ class UserModel {
   String city;
   String diet;
   String height;
-  
+  String religious;
   String profilePic;
+  String docfilePic;
   String createdAt;
   String phoneNumber;
-  String uid;
+  String gender;
+  String hobby;
+  String age;
+  String id;
+  String qulafication;
+  String employe;
+  String jobtypes;
+  String salaryrange;
 
   UserModel({
     required this.name,
+    required this.docfilePic,
+    required this.salaryrange,
+    required this.jobtypes,
     required this.email,
+    required this.qulafication,
     required this.bio,
     required this.city,
+    required this.gender,
+    required this.hobby,
     required this.diet,
     required this.height,
     required this.marriage,
-    
     required this.profilePic,
     required this.createdAt,
     required this.phoneNumber,
-    required this.uid,
+    required this.id,
+    required this.religious,
+    required this.age,
+    required this.employe,
   });
 
   // from map
@@ -33,14 +49,23 @@ class UserModel {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       bio: map['bio'] ?? '',
-      uid: map['uid'] ?? '',
+      id: map['id'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
       createdAt: map['createdAt'] ?? '',
       profilePic: map['profilePic'] ?? '',
-       city: map['city'] ?? '',
-       marriage: map['marriage'] ?? '',
-       diet: map['diet'] ?? '',
-       height: map['height'] ?? '',
+      city: map['city'] ?? '',
+      marriage: map['marriage'] ?? '',
+      diet: map['diet'] ?? '',
+      height: map['height'] ?? '',
+      gender: map['gender'] ?? '',
+      hobby: map['hobby'] ?? '',
+      age: map['age'] ?? '',
+      qulafication: map['qulafication'] ?? '',
+      religious: map['religious'] ?? '',
+      employe: map['employe'] ?? '',
+      jobtypes: map['jobtypes'] ?? '',
+      salaryrange: map['salaryrange'] ?? '',
+      docfilePic: map['docfilePic'] ?? '',
     );
   }
 
@@ -49,15 +74,24 @@ class UserModel {
     return {
       "name": name,
       "email": email,
-      "city" : city,
-      "marriage" : marriage,
-      "diet" : diet,
-      "height" : height,
-      "uid": uid,
+      "city": city,
+      "marriage": marriage,
+      "qulafication": qulafication,
+      "diet": diet,
+      "height": height,
+      "id": id,
+      'age': age,
       "bio": bio,
+      "gender": gender,
+      "hobby": hobby,
       "profilePic": profilePic,
       "phoneNumber": phoneNumber,
       "createdAt": createdAt,
+      "religious": religious,
+      "employe": employe,
+      "jobtypes": jobtypes,
+      "salaryrange": salaryrange,
+      "docfilePic": docfilePic,
     };
   }
 }

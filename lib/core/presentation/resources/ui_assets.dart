@@ -48,7 +48,7 @@ class UIAssets {
   static const animationDir = "assets/flares/";
 
   static const emptyViewAnim = "${animationDir}empty_view.flr";
-  static const liquidLoading = "liquid_loader.flr";
+  static const liqidLoading = "liqid_loader.flr";
 
   //gif images / gif loading
   static const gifDir = "assets/gif/";

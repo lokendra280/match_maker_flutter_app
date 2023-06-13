@@ -16,6 +16,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController phoneController = TextEditingController();
+  bool isLoading = false;
 
   Country selectedCountry = Country(
     phoneCode: "977",
@@ -80,6 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   TextFormField(
                     cursorColor: Colors.purple,
                     controller: phoneController,
+                    keyboardType: TextInputType.phone,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -151,9 +153,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: CustomButton(
-                        text: "Login", onPressed: () => sendPhoneNumber()),
-                  ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          isLoading =
+                              true; // Set the flag to true when button is clicked
+                        });
+                        sendPhoneNumber(); // Perform your login logic here
+                      },
+                      child: isLoading
+                          ? CircularProgressIndicator() // Show circular progress when isLoading is true
+                          : Text("Login"),
+                    ),
+                  )
                 ],
               ),
             ),

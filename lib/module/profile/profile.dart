@@ -15,7 +15,7 @@ class ProfilePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color.fromRGBO(28, 144, 79, 1),
+        backgroundColor: const Color.fromRGBO(28, 144, 79, 1),
         title: Text(
           "Profile",
           style: Theme.of(context).textTheme.caption!.copyWith(
@@ -27,7 +27,7 @@ class ProfilePage extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: SC.lW, vertical: SC.sH),
+          padding: const EdgeInsets.symmetric(horizontal: SC.lW, vertical: SC.sH),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
